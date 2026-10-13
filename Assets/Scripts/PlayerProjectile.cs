@@ -4,7 +4,7 @@ public class PlayerProjectile : MonoBehaviour
 {
     float speed = 10;
     Vector3 direction;
-    public Transform target;
+
     Vector3 target_position;
     
 
@@ -17,11 +17,11 @@ public class PlayerProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
+        transform.position += direction * speed * Time.deltaTime;
+     }
 
 
-public void SetDirection(string facing)
+public void SetDirection (string facing)
     {
         if(facing == "Right")
         {
@@ -46,13 +46,7 @@ public void SetDirection(string facing)
         }
     }   
 
-    public void shoot ()
-    {
-        
-
-
-    }
-
+    
 
 
 }

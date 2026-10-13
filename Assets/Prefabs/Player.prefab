@@ -162,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc065f5cb6744fb6b86e2af8c4c111e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  player_projectile_prefab: {fileID: 5790822057519619805, guid: 9de48bbafd5374d3b91c5ead3d62fd94, type: 3}
+  spawnpoint: {fileID: 0}
 --- !u!50 &2552566212021362336
 Rigidbody2D:
   serializedVersion: 5

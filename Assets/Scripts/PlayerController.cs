@@ -19,10 +19,11 @@ public class PlayerController : MonoBehaviour
     int health = 5; 
     bool cooldown = true;
     float cooldowntimer = 1.5f;
-    string facing;
-    [SerializeField] GameObject playerprojectile_prefab;
+    String facing;
+    [SerializeField] GameObject player_projectile_prefab;
     [SerializeField] Transform spawnpoint;
-    Transform target; 
+     
+
 
 
     private void Start()
@@ -152,9 +153,9 @@ void ChangeHealth (int Amount)
 
 public void shoot ()
     {
-        GameObject fireball_copy = Instantiate(playerprojectile_prefab, spawnpoint.position, quaternion.identity);
-        Projectile projectile_script = playerprojectile_copy.GetComponent<Projectile>();
-        projectile_script.target = target;
+        GameObject player_projectile_copy = Instantiate(player_projectile_prefab, transform.position, quaternion.identity);
+        PlayerProjectile projectile_script = player_projectile_copy.GetComponent <PlayerProjectile>();
+        projectile_script.SetDirection(facing);
 
 
     }
