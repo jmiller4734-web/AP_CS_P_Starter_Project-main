@@ -1,4 +1,6 @@
 using System;
+using TMPro;
+using Unity.Mathematics;
 using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,14 +17,20 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer renderer;
     int Coins;
     int health = 5; 
+    bool cooldown = true;
+    float cooldowntimer = 1.5f;
+    string facing;
+    [SerializeField] GameObject playerprojectile_prefab;
+    [SerializeField] Transform spawnpoint;
+    Transform target; 
+
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         renderer = GetComponentInChildren<SpriteRenderer>();
-        
-       
+               
     }
 
     private void Update()
@@ -37,6 +45,34 @@ public class PlayerController : MonoBehaviour
        transform.position += new Vector3 (xvector,yvector,0);
         //rb.MovePosition( transform.position + new Vector3(xvector,yvector,0));
        AnimationUpdate();
+
+        if (xdirection>0)
+        {
+            facing = "Right";
+
+
+        }
+            else if (xdirection<0)
+             {
+            
+            facing = "Left";
+            }
+        if (ydirection>0)
+        {
+            facing = "Up";
+        }
+        else if (ydirection<0)
+        {
+            facing = "Down";
+        }
+       if (Input.GetKeyDown(KeyCode.Space) &&  cooldown)
+        {
+            shoot();
+
+
+        }      
+
+
     }
     void OnTriggerEnter2D (Collider2D other)
     {
@@ -55,32 +91,27 @@ public class PlayerController : MonoBehaviour
             if (health <= 4)
             {
                 Destroy (other.gameObject);
-                health = health + 1;
-                print ("You have " + health + " health remaining");
+               ChangeHealth (1);
             }
             else if (health >= 5)
             {
-                health = health = 5; 
                 print ("You have max health");
             }
         }
+
+        if (other.gameObject.CompareTag("E_Fireball"))
+        {
+            ChangeHealth (-2);
+             
+        }
+
     }
     void OnCollisionEnter2D(Collision2D other)
     {
        if (other.gameObject.CompareTag("Spikes"))
         {
-            health = health - 1;
-            if (health <= 0)
-            {
-                print ("You Died");
-                health = 5;
-                Coins = Coins / 2;
-                print ("You now have " + Coins + (" coins"));
-            }  
-            else if (health >= 1)
-                {
-                    print ("You have " + health + " health remaining");
-                }
+            ChangeHealth (-1);
+            
              
         }
         
@@ -93,17 +124,43 @@ public class PlayerController : MonoBehaviour
 
 
     }
+    void Die (int Amount)
+    {
+      print ("You Died");  
 
+    }
 
 
 void ChangeHealth (int Amount)
     {
-        health = health - 1
-
-
+        health = health + Amount;
+    
+     if (health <= 0)
+            {
+                Die (1);
+                //print ("You Died");
+                health = 5;
+                ChangeCoins (- Coins/2);
+            }  
+            else if (health >= 1)
+                {
+                    print ("You have " + health + " health remaining");
+                }
 
 
     }
+
+public void shoot ()
+    {
+        GameObject fireball_copy = Instantiate(playerprojectile_prefab, spawnpoint.position, quaternion.identity);
+        Projectile projectile_script = playerprojectile_copy.GetComponent<Projectile>();
+        projectile_script.target = target;
+
+
+    }
+
+
+
 
 
     private void AnimationUpdate()    
