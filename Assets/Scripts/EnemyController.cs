@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,11 +10,12 @@ public class EnemyController : MonoBehaviour
     Vector3 target_position;
 
     Transform target;
-
+    int patrolNumber = 0;
+    [SerializeField] private List<Transform> patrolpoints = new List<Transform>();
 
     public void Start()
     {
-        
+        target_position = patrolpoints[0].position; 
     }
 
     public void Update()
@@ -20,9 +23,27 @@ public class EnemyController : MonoBehaviour
         if(inRange)
         {
             target_position = target.position;
+        
+        }
+        else
+        {
+            target_position = patrolpoints[patrolNumber].position;
+            if(Vector3.Distance(transform.position, patrolpoints[patrolNumber].position)<.1)
+            {
+                patrolNumber +=1;
+                if(patrolNumber == patrolpoints.Count)
+                {
+                    patrolNumber = 0;
+
+
+                }
+
+
+            }
+        }
             float step = speed * Time.deltaTime; 
             transform.position = Vector3.MoveTowards(transform.position,target_position,step);
-        }
+        
 
     }
     

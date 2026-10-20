@@ -48,6 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865d5d4d919324ea0b0c22ab6b798e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  patrolpoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!50 &-2863584017028298060
 Rigidbody2D:
   serializedVersion: 5
