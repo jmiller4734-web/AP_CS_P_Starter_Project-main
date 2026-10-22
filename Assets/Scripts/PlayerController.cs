@@ -3,6 +3,7 @@ using TMPro;
 using Unity.Mathematics;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
@@ -22,7 +23,8 @@ public class PlayerController : MonoBehaviour
     String facing;
     [SerializeField] GameObject player_projectile_prefab;
     [SerializeField] Transform spawnpoint;
-     
+    [SerializeField] GameObject attack_box;
+     GameObject currentEnemy;
 
 
 
@@ -50,34 +52,50 @@ public class PlayerController : MonoBehaviour
         if (xdirection>0)
         {
             facing = "Right";
-
+            attack_box.transform.position = transform.position + new Vector3 (.5f, .5f, 0);
 
         }
             else if (xdirection<0)
              {
             
             facing = "Left";
+            attack_box.transform.position = transform.position + new Vector3 (-.5f, .5f, 0);
             }
         if (ydirection>0)
         {
             facing = "Up";
+            attack_box.transform.position = transform.position + new Vector3 (0, 1.5f, 0);
         }
         else if (ydirection<0)
         {
             facing = "Down";
+            attack_box.transform.position = transform.position + new Vector3 (0, 0, 0);
         }
        if (Input.GetKeyDown(KeyCode.Space) &&  cooldown)
         {
             shoot();
-
+            cooldowntimer=.5f;
 
         }      
+
+   
 
 
     }
     void OnTriggerEnter2D (Collider2D other)
     {
-       
+       if (Input.GetKeyDown(KeyCode.E) && currentEnemy != null)
+        {
+            //damage enemy
+            currentEnemy.GetComponent<EnemyController>().ChangeHealth(-1);
+            cooldowntimer=.5f;
+
+        }    
+
+       if(other.gameObject.CompareTag("Enemy"))
+        {
+            currentEnemy = other.gameObject;
+        }
        
         if(other.gameObject.CompareTag("Coin"))
         {

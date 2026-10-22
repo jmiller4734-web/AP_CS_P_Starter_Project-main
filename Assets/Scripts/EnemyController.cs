@@ -11,7 +11,10 @@ public class EnemyController : MonoBehaviour
 
     Transform target;
     int patrolNumber = 0;
+    int health = 3; 
+
     [SerializeField] private List<Transform> patrolpoints = new List<Transform>();
+    [SerializeField] GameObject itemDrop;
 
     public void Start()
     {
@@ -67,8 +70,33 @@ public class EnemyController : MonoBehaviour
             target = null;
         }
     }
+public void ChangeHealth (int Amount)
+    {
+        health = health + Amount;
+    
+     if (health <= 0)
+            {
+                Die ();
+            }  
+            else if (health >= 1)
+                {
+                    print ("The enemy has " + health + " health ");
+                }
 
 
+    }
+
+
+
+
+
+    void Die()
+    {
+        Instantiate(itemDrop, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+
+
+    }
 
 
 
