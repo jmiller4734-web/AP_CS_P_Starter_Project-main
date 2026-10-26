@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform spawnpoint;
     [SerializeField] GameObject attack_box;
      GameObject currentEnemy;
+     
 
 
 
@@ -82,19 +83,29 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+
+
     void OnTriggerEnter2D (Collider2D other)
     {
-       if (Input.GetKeyDown(KeyCode.E) && currentEnemy != null)
+        if(other.gameObject.CompareTag("CaveTrigger"))
         {
+            rb.gravityScale = .5f;
+
+        }
+
+       if(other.gameObject.CompareTag("Enemy"))
+        {
+            
+            currentEnemy = other.gameObject;
+            if (Input.GetKeyDown(KeyCode.E) && currentEnemy != null)
+            {
             //damage enemy
             currentEnemy.GetComponent<EnemyController>().ChangeHealth(-1);
             cooldowntimer=.5f;
 
-        }    
+            }
 
-       if(other.gameObject.CompareTag("Enemy"))
-        {
-            currentEnemy = other.gameObject;
         }
        
         if(other.gameObject.CompareTag("Coin"))
