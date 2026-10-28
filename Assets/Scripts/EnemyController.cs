@@ -12,10 +12,11 @@ public class EnemyController : MonoBehaviour
     Transform target;
     int patrolNumber = 0;
     int health = 3; 
+    int coins;
 
     [SerializeField] private List<Transform> patrolpoints = new List<Transform>();
     [SerializeField] GameObject itemDrop;
-
+    [SerializeField] GameObject itemDrop2;
     public void Start()
     {
         target_position = patrolpoints[0].position; 
@@ -93,6 +94,7 @@ public void ChangeHealth (int Amount)
     void Die()
     {
         Instantiate(itemDrop, transform.position, Quaternion.identity);
+        Instantiate(itemDrop2, transform.position, Quaternion.identity);
         Destroy(gameObject);
 
 

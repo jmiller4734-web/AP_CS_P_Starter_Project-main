@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject player_projectile_prefab;
     [SerializeField] Transform spawnpoint;
     [SerializeField] GameObject attack_box;
-     GameObject currentEnemy;
+     [SerializeField] GameObject currentEnemy;
      
 
 
@@ -79,8 +79,11 @@ public class PlayerController : MonoBehaviour
 
         }      
 
-   
-
+         if (Input.GetKeyDown(KeyCode.E) && currentEnemy != null)
+            {
+                Hit();
+                cooldowntimer=.5f;
+            }
 
     }
 
@@ -88,25 +91,8 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D other)
     {
-        if(other.gameObject.CompareTag("CaveTrigger"))
-        {
-            rb.gravityScale = .5f;
-
-        }
-
-       if(other.gameObject.CompareTag("Enemy"))
-        {
-            
-            currentEnemy = other.gameObject;
-            if (Input.GetKeyDown(KeyCode.E) && currentEnemy != null)
-            {
-            //damage enemy
-            currentEnemy.GetComponent<EnemyController>().ChangeHealth(-1);
-            cooldowntimer=.5f;
-
-            }
-
-        }
+       
+       
        
         if(other.gameObject.CompareTag("Coin"))
         {
@@ -144,10 +130,23 @@ public class PlayerController : MonoBehaviour
             
              
         }
-        
-    }
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            
+            currentEnemy = other.gameObject;
+           
 
-    void ChangeCoins (int Amount)
+        }
+
+    }
+    void Hit()
+    {
+    
+        currentEnemy.GetComponent<EnemyController>().ChangeHealth(-1);
+    
+
+    }
+    public void ChangeCoins (int Amount)
     {
         Coins = Coins + Amount;
         print ("You have " + Coins + " Coins ");
