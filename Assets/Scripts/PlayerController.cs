@@ -25,7 +25,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform spawnpoint;
     [SerializeField] GameObject attack_box;
      [SerializeField] GameObject currentEnemy;
-     
+     int jumpsRemaining;
+     int maxJumps = 1;
+     [SerializeField] float jumpforce;
+     bool isPlatformer = false;
 
 
 
@@ -34,7 +37,21 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         renderer = GetComponentInChildren<SpriteRenderer>();
-               
+        Scene currentScene = SceneManager.GetActiveScene();
+       if (currentScene.name == "Overworld")
+        {
+            rb.gravityScale = 0;
+            isPlatformer = false;
+
+        }
+        else
+        {
+            rb.gravityScale = 1;
+            isPlatformer = true; 
+            jumpsRemaining = maxJumps;
+            print (jumpsRemaining);
+        }
+
     }
 
     private void Update()
@@ -84,6 +101,21 @@ public class PlayerController : MonoBehaviour
                 Hit();
                 cooldowntimer=.5f;
             }
+        if (!isPlatformer)
+        {
+            rb.linearVelocity = new Vector2 (xvector, yvector);
+
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.J) && jumpsRemaining>=1)
+            {
+                rb.AddForceY(jumpforce, ForceMode2D.Impulse);
+                jumpsRemaining -= 1;
+                
+            }
+         rb.linearVelocityX = xvector;
+        }
 
     }
 
@@ -137,6 +169,15 @@ public class PlayerController : MonoBehaviour
            
 
         }
+        if(other.gameObject.CompareTag("Ground"))
+        {
+            jumpsRemaining = maxJumps;
+        
+
+        }
+
+
+
 
     }
     void Hit()
