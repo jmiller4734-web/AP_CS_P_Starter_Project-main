@@ -6,7 +6,7 @@ public class PlayerProjectile : MonoBehaviour
     Vector3 direction;
 
     Vector3 target_position;
-    
+    [SerializeField] GameObject currentEnemy;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,7 +45,21 @@ public void SetDirection (string facing)
 
         }
     }   
+    void OnCollisionEnter2D(Collision2D other)
+    {
+         if (other.gameObject.CompareTag("Enemy"))
+        {
+          currentEnemy = other.gameObject;
+           PlayerHit();
+         
+        }
 
+    }
+    public void PlayerHit()
+    {
+        currentEnemy.GetComponent<EnemyController>().ChangeHealth(-1);
+
+    }
     
 
 

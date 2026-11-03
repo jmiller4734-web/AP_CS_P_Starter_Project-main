@@ -59,11 +59,7 @@ public class EnemyController : MonoBehaviour
 
             target = other.transform;
         }
-         if (other.gameObject.CompareTag("Player_Projectile"))
-        {
-            health = health - 1;
-
-        }
+      
 
     }
 
