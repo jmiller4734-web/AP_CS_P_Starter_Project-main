@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
      [SerializeField] float jumpforce;
      bool isPlatformer = false;
 
+     StatManager manager;
+
 
 
     private void Start()
@@ -37,7 +39,14 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         renderer = GetComponentInChildren<SpriteRenderer>();
+
         Scene currentScene = SceneManager.GetActiveScene();
+
+
+        manager = FindAnyObjectByType<StatManager>();
+
+
+
        if (currentScene.name == "Overworld")
         {
             rb.gravityScale = 0;
@@ -129,27 +138,27 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("Coin"))
         {
            // Coins = Coins + 1;
-           ChangeCoins (1);
+           manager.ChangeCoins (1);
             Destroy (other.gameObject);
             //print ("You have " + Coins + " coins");
         }
         if (other.gameObject.CompareTag("Health Potion"))
         {
-            
+
             if (health <= 4)
             {
                 Destroy (other.gameObject);
-               ChangeHealth (1);
+               manager.ChangeHealth (1);
             }
             else if (health >= 5)
             {
-                print ("You have max health");
+               // print ("You have max health");
             }
         }
 
         if (other.gameObject.CompareTag("E_Fireball"))
         {
-            ChangeHealth (-2);
+            manager.ChangeHealth (-2);
              
         }
 
@@ -158,7 +167,7 @@ public class PlayerController : MonoBehaviour
     {
        if (other.gameObject.CompareTag("Spikes"))
         {
-            ChangeHealth (-1);
+            manager.ChangeHealth (-1);
             
              
         }
@@ -187,38 +196,38 @@ public class PlayerController : MonoBehaviour
     
 
     }
-    public void ChangeCoins (int Amount)
-    {
-        Coins = Coins + Amount;
-        print ("You have " + Coins + " Coins ");
+   // public void ChangeCoins (int Amount)
+   // {
+   //     Coins = Coins + Amount;
+ //       print ("You have " + Coins + " Coins ");
 
 
-    }
-    void Die (int Amount)
-    {
-      print ("You Died");  
+   // }
+   // void Die (int Amount)
+  //  {
+//      print ("You Died");  
 
-    }
+  //  }
 
 
-void ChangeHealth (int Amount)
-    {
-        health = health + Amount;
+//void ChangeHealth (int Amount)
+  //  {
+  //      health = health + Amount;
     
-     if (health <= 0)
-            {
-                Die (1);
+  //   if (health <= 0)
+   //         {
+ //               Die (1);
                 //print ("You Died");
-                health = 5;
-                ChangeCoins (- Coins/2);
-            }  
-            else if (health >= 1)
-                {
-                    print ("You have " + health + " health remaining");
-                }
+   //             health = 5;
+   //             ChangeCoins (- Coins/2);
+    //        }  
+    //        else if (health >= 1)
+     //           {
+//                    print ("You have " + health + " health remaining");
+   //             }
 
 
-    }
+   //a }
 
 public void shoot ()
     {
