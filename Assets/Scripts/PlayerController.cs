@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    float Speed =4;
+    float Speed =6;
     float xvector;
     float yvector;
     float xdirection;
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = 1;
             isPlatformer = true; 
             jumpsRemaining = maxJumps;
-            print (jumpsRemaining);
+            
         }
 
     }
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (health >= 5)
             {
-               // print ("You have max health");
+                print ("You have max health");
             }
         }
 
