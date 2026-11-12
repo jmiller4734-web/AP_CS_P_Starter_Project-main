@@ -5359,7 +5359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8181659324622746617, guid: 665c13fbf16bf7a47b8f73b6f233b68e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.983
+      value: -13.4
       objectReference: {fileID: 0}
     - target: {fileID: 8181659324622746617, guid: 665c13fbf16bf7a47b8f73b6f233b68e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10493,6 +10493,11 @@ Transform:
   - {fileID: 1408024004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1827707971 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5430693902082218390, guid: fa0e20a38d76d4460807ad9980ca47b6, type: 3}
+  m_PrefabInstance: {fileID: 163000409949073952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &163000409949073952
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10574,7 +10579,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc5ee3658f524cca8f8a0e64e283248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Platformer
+  isOn: 0
   patrolpoints: []
+--- !u!4 &4592695042172377031 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6318184895829810071, guid: fa0e20a38d76d4460807ad9980ca47b6, type: 3}
+  m_PrefabInstance: {fileID: 163000409949073952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7494054705044637693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10660,7 +10671,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc5ee3658f524cca8f8a0e64e283248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Platformer
-  patrolpoints: []
+  isOn: 0
+  patrolpoints:
+  - {fileID: 4592695042172377031}
+  - {fileID: 1827707971}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

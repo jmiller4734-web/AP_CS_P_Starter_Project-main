@@ -46,27 +46,27 @@ public class Platformer : MonoBehaviour
     }
 
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             isOn = true; 
 
             target = other.transform;
-           // other.gameObject.transform.SetParent(transform);
+           other.gameObject.transform.SetParent(transform);
         }
       
 
     }
 
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             isOn = false; 
             target = null;
-            //other.gameObject.transform.SetParent(null);
+            other.gameObject.transform.SetParent(null);
         }
     }
 

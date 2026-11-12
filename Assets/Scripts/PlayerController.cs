@@ -70,7 +70,6 @@ public class PlayerController : MonoBehaviour
        ydirection = Input.GetAxisRaw("Vertical");
        //assign vector
        xvector = xdirection * Speed * Time.deltaTime;
-       yvector = ydirection * Speed * Time.deltaTime;
        //Position
        transform.position += new Vector3 (xvector,yvector,0);
         //rb.MovePosition( transform.position + new Vector3(xvector,yvector,0));
@@ -113,7 +112,7 @@ public class PlayerController : MonoBehaviour
         if (!isPlatformer)
         {
             rb.linearVelocity = new Vector2 (xvector, yvector);
-
+            yvector = ydirection * Speed * Time.deltaTime;
         }
         else
         {
