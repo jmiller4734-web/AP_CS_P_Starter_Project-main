@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
     SpriteRenderer renderer;
-    int Coins;
-    int health = 5; 
     bool cooldown = true;
     float cooldowntimer = 1.5f;
     String facing;
@@ -144,12 +142,12 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Health Potion"))
         {
 
-            if (health <= 4)
+            if (manager.health <= 4)
             {
                 Destroy (other.gameObject);
                manager.ChangeHealth (1);
             }
-            else if (health >= 5)
+            else if (manager.health >= 5)
             {
                 print ("You have max health");
             }
