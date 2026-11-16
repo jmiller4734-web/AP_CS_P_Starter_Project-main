@@ -8,6 +8,7 @@ public class StatManager : MonoBehaviour
     public static StatManager original;
     [SerializeField] TextMeshProUGUI CoinText;
     [SerializeField] TextMeshProUGUI HealthText;
+    [SerializeField] public int maxJumps;
 
     
     public void Start()
@@ -29,7 +30,11 @@ public class StatManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
     }
+   // public void maxJumps (int Amount)
+   // {
+  //     maxJumps= maxJumps + Amount;
 
+ //   }
     //code here
     public void ChangeCoins (int Amount)
     {

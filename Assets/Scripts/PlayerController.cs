@@ -129,8 +129,11 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D other)
     {
-       
-       
+       // if(other.gameObject.CompareTag("DoubleJump"))
+       // {
+       //     manager.maxJumps(1);
+
+       // }
        
         if(other.gameObject.CompareTag("Coin"))
         {
