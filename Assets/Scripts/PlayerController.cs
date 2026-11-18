@@ -23,8 +23,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform spawnpoint;
     [SerializeField] GameObject attack_box;
      [SerializeField] GameObject currentEnemy;
-     int jumpsRemaining;
-     int maxJumps = 1;
      [SerializeField] float jumpforce;
      bool isPlatformer = false;
 
@@ -55,7 +53,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = 1;
             isPlatformer = true; 
-            jumpsRemaining = maxJumps;
+            manager.jumpsRemaining = manager.maxJumps;
             
         }
 
@@ -114,10 +112,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.J) && jumpsRemaining>=1)
+            if (Input.GetKeyDown(KeyCode.J) && manager.jumpsRemaining>=1)
             {
                 rb.AddForceY(jumpforce, ForceMode2D.Impulse);
-                jumpsRemaining -= 1;
+                manager.jumpsRemaining -= 1;
                 
             }
          rb.linearVelocityX = xvector;
@@ -129,11 +127,11 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D other)
     {
-       // if(other.gameObject.CompareTag("DoubleJump"))
-       // {
-       //     manager.maxJumps(1);
-
-       // }
+        if(other.gameObject.CompareTag("DoubleJump"))
+        {
+            manager.ChangemaxJumps(1);
+            Destroy (other.gameObject);
+        }
        
         if(other.gameObject.CompareTag("Coin"))
         {
@@ -180,7 +178,7 @@ public class PlayerController : MonoBehaviour
         }
         if(other.gameObject.CompareTag("Ground"))
         {
-            jumpsRemaining = maxJumps;
+            manager.jumpsRemaining = manager.maxJumps;
         
 
         }
